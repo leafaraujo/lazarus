@@ -1,62 +1,76 @@
 #include "journey.h"
+#include <iostream>
+#include <vector>
 
-Journey::Journey(int num){
-    int id = num;
-    int status = 1;
-}
+using namespace std;
 
-void Journey::addAstronaut(std::shared_ptr<Astronaut> astronaut){
+Journey::Journey(int num) : id(num), status(1) {};
+
+void Journey::addAstronaut(Astronaut astronaut)
+{
     astrosInJourney.push_back(astronaut);
 }
 
-void Journey::removeAstronautByCpf(std::string cpfToBeRemoved){
-    auto it = std::find_if(astrosInJourney.begin(), astrosInJourney.end(),
-                               [cpfToBeRemoved](const std::shared_ptr<Astronaut>& astronaut) {
-                                   return astronaut->getCpf() == cpfToBeRemoved;
-                               });
-
-        if (it != astrosInJourney.end()) {
+void Journey::removeAstronautByCpf(std::string cpfToBeRemoved, int id)
+{
+    for (auto it = astrosInJourney.begin(); it != astrosInJourney.end(); ++it)
+    {
+        if (it->getCpf() == cpfToBeRemoved)
+        {
+            printf("encontrei");
             astrosInJourney.erase(it);
-            std::cout << "Astronauta com CPF " << cpfToBeRemoved << " removido da jornada." << std::endl;
-        } 
-        else {
-            std::cout << "Astronauta com CPF " << cpfToBeRemoved << " não encontrado na jornada." << std::endl;
+            continue;
         }
+    }
+
+    printf("num ");
 }
 
-void Journey::changeJourneyStatus(int status){
-    
-    if(status == 0){
+void Journey::changeJourneyStatus(int status)
+{
+
+    if (status == 0)
+    {
         this->status = 0;
         std::cout << "A viagem foi finalizada sem êxito!" << std::endl;
-        for(int i =0; i < astrosInJourney.size(); i++){
-            astrosInJourney[i]->setStatus(0);
+        for (int i = 0; i < astrosInJourney.size(); i++)
+        {
+            astrosInJourney[i].setStatus(0);
         }
     }
-    else if(status == 2){
+    else if (status == 2)
+    {
         this->status = 2;
         std::cout << "A viagem foi lançada com sucesso!" << std::endl;
-        for(int i =0; i < astrosInJourney.size(); i++){
-            astrosInJourney[i]->setStatus(2);
+        for (int i = 0; i < astrosInJourney.size(); i++)
+        {
+            astrosInJourney[i].setStatus(2);
         }
     }
-    else if(status == 3){
+    else if (status == 3)
+    {
         this->status = 3;
         std::cout << "A viagem foi finalizada com êxito!" << std::endl;
-        for(int i =0; i < astrosInJourney.size(); i++){
-            astrosInJourney[i]->setStatus(1);
+        for (int i = 0; i < astrosInJourney.size(); i++)
+        {
+            astrosInJourney[i].setStatus(1);
         }
     }
 }
 
-std::vector<std::shared_ptr<Astronaut>>& Journey::getAstrosInJourney(){
+std::vector<Astronaut> Journey::getAstrosInJourney()
+{
     return astrosInJourney;
 }
 
-int Journey::getID(){
+int Journey::getID()
+{
     return id;
 }
 
-int Journey::getStatus(){
+int Journey::getStatus()
+{
     return status;
 }
+
+Journey::~Journey() {}

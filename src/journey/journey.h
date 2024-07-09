@@ -4,28 +4,27 @@
 #include "../astronaut/astronaut.h"
 #include <vector>
 #include <iostream>
-#include <memory>
-#include <algorithm>s
 
-class Journey{
-    private:
+class Journey
+{
+private:
     int id, status;
-    std::vector<std::shared_ptr<Astronaut>> astrosInJourney;
+    std::vector<Astronaut> astrosInJourney;
 
-    public:
+public:
     Journey(int id);
 
-    void addAstronaut(std::shared_ptr<Astronaut> astronaut);
-    void removeAstronaut(const std::string cpf);
+    void addAstronaut(Astronaut astronaut);
+    void removeAstronaut(const std::string cpf, int idAux);
     void listAstronaut() const;
     void changeJourneyStatus(int status);
-    void removeAstronautByCpf(std::string cpfToBeRemoved);
-    
-    std::vector<std::shared_ptr<Astronaut>>& getAstrosInJourney();
+    void removeAstronautByCpf(std::string cpfToBeRemoved, int id);
+
+    std::vector<Astronaut> getAstrosInJourney();
     int getID();
     int getStatus();
     void setStatus(int status);
-    
+
     ~Journey();
 };
 
